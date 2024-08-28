@@ -1,7 +1,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export function buscarPokemones(limit = 200) {
+export function buscarPokemones(limit = 25) {
     
   const pokemones = ref([]);
   const pokemon = ref(null);

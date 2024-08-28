@@ -1,4 +1,6 @@
 <script setup>
+    import { Trash } from "lucide-vue-next"
+    import { useRoute } from "vue-router"
 
     const props = defineProps({
         name: String,
@@ -6,10 +8,20 @@
         type: String
     })
 
+    const emit = defineEmits(["borrarPokemon"]);
+
+    const removerPokemon  = () => {
+        emit("borrarPokemon", props.name)
+    }
+
+    const route = useRoute();
+
+    const mostrarIconoBorrado = route.path === "/pokemones";
+
 </script>
 
 <template>
-    <div class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-300">
+    <div class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-300 relative">
         <img :src="image" alt="Imagen de {{ name }}" class="w-full object-cover px-2"/>
         <div class="px-4 pb-2">
             <h2 class="text-xl font-semibold pb-1 text-red-500 capitalize">{{ name }}</h2>
@@ -20,6 +32,9 @@
                 </button>
             </router-link>
         </div>
+        <span v-if="mostrarIconoBorrado" @click="removerPokemon" class="absolute top-2 right-2 h-auto w-auto bg-rojo-nav/60 rounded-full cursor-pointer">
+            <Trash class="size-8 text-white p-2"/>
+        </span>
     </div>
 </template>
   
