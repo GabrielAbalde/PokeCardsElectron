@@ -1,32 +1,31 @@
 <script setup>
-import CardPokemon from './CardPokemon.vue';
-import { RouterLink } from "vue-router";
-import { ref } from "vue"
+    import CardPokemon from './CardPokemon.vue';
+    import { RouterLink } from "vue-router";
 
-const props = defineProps({
-    pokemones: {
-        type: Array,
-        default: () => []
-    },
-    limit: Number,
-    showButton: {
-        type: Boolean,
-        default: false
-    },
-})
+    const props = defineProps({
+        pokemones: {
+            type: Array,
+            default: () => []
+        },
+        limit: Number,
+        showButton: {
+            type: Boolean,
+            default: false
+        },
+    })
 
-const pokemones = ref(props.pokemones)
+    const emit = defineEmits(["borrarPokemon"]);
 
-const quitarPokemon = (name) => {
-    pokemones.value = pokemones.value.filter(pokemon => pokemon.name !== name);
-}
-
+    const quitarPokemon = (name) => {
+        emit("borrarPokemon", name);
+    }
+    
 </script>
 
 <template>
-    <section :class="`flex flex-col ${showButton ? 'justify-around' : 'justify-start'} gap-5 mb-5`">
+    <section :class="`flex flex-col ${showButton ? 'justify-around mb-5' : 'justify-start'} gap-8 flex-1`">
         <div v-if="pokemones.length > 0" 
-            class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5 auto-cols-[12rem]">
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5 auto-cols-[12rem]">
             <CardPokemon
                 v-for="pokemon in pokemones.slice(0, limit || pokemones.length)"
                 :key="pokemon.name"

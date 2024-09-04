@@ -24,7 +24,7 @@ const isActiveLink = (routePath) => {
               isActiveLink('/')
                 ? 'bg-rojo-active/60'
                 : 'hover:bg-rojo-active/30 hover:text-white',
-              'text-white px-3 py-2 rounded-md text-sm font-medium'
+              'text-white px-3 py-2 rounded-md  font-medium'
             ]"
           >
             Home
@@ -35,7 +35,7 @@ const isActiveLink = (routePath) => {
               isActiveLink('/pokemones')
                 ? 'bg-rojo-active/60'
                 : 'hover:bg-rojo-active/30 hover:text-white',
-              'text-white px-3 py-2 rounded-md text-sm font-medium'
+              'text-white px-3 py-2 rounded-md font-medium'
             ]"
           >
             Pokemones

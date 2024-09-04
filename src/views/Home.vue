@@ -9,7 +9,7 @@
 <template>
     <section class="w-full h-full flex flex-col justify-between gap-6">
         <Hero />
-        <div class="px-10 flex flex-1">
+        <div class="px-10">
             <div v-if="loading" class="text-2xl pl-2">Cargando...</div>
             <div v-else-if="error" class="text-2xl pl-2">{{ error }}</div>
             <div v-else>

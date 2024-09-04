@@ -28,11 +28,12 @@
         { name: "stellar" }
     ];
 
-
     const { pokemones, loading, error } = buscarPokemones();
 
-    console.log(pokemones);
-
+    const quitarPokemon = (name) => {
+        pokemones.value = pokemones.value.filter(pokemon => pokemon.name !== name);
+    }
+    
     const toggleTipo = (tipo) => {
         if (tiposSeleccionados.value.includes(tipo)) {
             tiposSeleccionados.value = tiposSeleccionados.value.filter(t => t !== tipo);
@@ -48,18 +49,19 @@
             return nombreCoincide && tipoCoincide;
         });
     });
+
 </script>
 
 <template>
-    <section class="py-5 px-10 flex flex-col justify-start">
-        <div class="flex w-full justify-between items-center pb-4">
+    <section class="py-5 px-4 md:px-5 flex flex-col justify-start gap-5">
+        <div class="flex flex-col sm:flex-row w-full justify-between items-center">
             <input 
                 v-model="buscarItem" 
                 type="text" 
                 placeholder="Buscar Pokémon" 
-                class="p-2 w-36 border rounded outline-gray-300"
+                class="p-2 w-full sm:w-36 md:w-48 border rounded outline-gray-300"
             />
-            <div class="flex justify-evenly gap-[0.450rem]">
+            <div class="flex flex-wrap justify-evenly gap-2 sm:gap-[0.450rem] mt-4 sm:mt-0">
                 <button 
                     v-for="tipo in tipos" 
                     :key="tipo.name" 
@@ -73,6 +75,6 @@
         </div>
         <div v-if="loading" class="text-2xl pl-2">Cargando...</div>
         <div v-else-if="error" class="text-2xl pl-2">{{ error }}</div>
-        <PokemonListing v-else :pokemones="pokeFiltrados" :showButton="false" />
+        <PokemonListing v-else :pokemones="pokeFiltrados" :showButton="false" @borrarPokemon="quitarPokemon" />
     </section>
 </template>

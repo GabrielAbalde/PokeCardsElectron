@@ -17,8 +17,8 @@ defineProps({
     <section class="bg-azul-hero py-4">
         <div class="w-full px-4 flex flex-col justify-center items-center">
             <div class="text-center flex flex-col gap-4 text-wrap max-w-[90%] sm:max-w-[40rem]">
-                <h1 class="text-3xl font-bold text-white sm:text-4xl md:text-[2.8rem]"> {{ title }} </h1>
-                <p class="text-xl text-white sm:text-2xl"> {{ subtitle }} </p>
+                <h1 class="text-4xl font-bold text-white sm:text-4xl md:text-[2.8rem]"> {{ title }} </h1>
+                <p class="text-xl text-white "> {{ subtitle }} </p>
             </div>
         </div>
     </section>
