@@ -1,14 +1,19 @@
 <script setup>
-    import { useRoute, RouterLink } from 'vue-router';
-    import { buscarPokemones } from "../composables/buscarPokemones";
-    import { SquareArrowLeft } from "lucide-vue-next"
+  import { onMounted } from "vue"
+  import { useRoute, RouterLink } from 'vue-router';
+  import { buscarPokemon } from "../composables/buscarPokemon";
+  import { SquareArrowLeft } from "lucide-vue-next"
 
-    const route = useRoute();
-    const nombre = route.params.name;
+  const route = useRoute();
+  const nombre = route.params.name;
 
-    const { pokemon, loading, error, fetchPokemonDetails } = buscarPokemones();
+  console.log(nombre);
 
-    fetchPokemonDetails(nombre);
+  const { pokemon, loading, error, traerInfo } = buscarPokemon(nombre);
+
+  onMounted(() => {
+    traerInfo();
+  })
     
 </script>
 
@@ -17,7 +22,7 @@
   <section class="w-full h-[200svh] flex justify-center items-center p-4 md:p-6">
     <div v-if="loading" class="text-center text-2xl">Cargando...</div>
     <div v-else-if="error" class="text-center text-2xl text-red-500">{{ error }}</div>
-    <div v-else class="flex flex-col md:flex-row items-center gap-6 w-full max-w-7xl">
+    <div v-else-if="pokemon" class="flex flex-col md:flex-row items-center gap-6 w-full max-w-7xl">
       
       <div class="flex-shrink-0 flex flex-col self-start justify-between gap-2 w-full md:w-2/5">
         <RouterLink to="/pokemones">

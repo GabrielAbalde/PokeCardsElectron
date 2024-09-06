@@ -1,7 +1,7 @@
 <script setup>
     import PokemonListing from '../components/PokemonListing.vue';
     import { buscarPokemones } from '../composables/buscarPokemones';
-    import { ref, computed } from 'vue';
+    import { ref, computed, onMounted } from 'vue';
 
     const buscarItem = ref("");
     const tiposSeleccionados = ref([]);
@@ -28,7 +28,7 @@
         { name: "stellar" }
     ];
 
-    const { pokemones, loading, error } = buscarPokemones();
+    const { pokemones, loading, error, traerDatos } = buscarPokemones();
 
     const quitarPokemon = (name) => {
         pokemones.value = pokemones.value.filter(pokemon => pokemon.name !== name);
@@ -48,6 +48,10 @@
             const tipoCoincide = tiposSeleccionados.value.length === 0 || tiposSeleccionados.value.includes(pokemon.type);
             return nombreCoincide && tipoCoincide;
         });
+    });
+
+    onMounted(() => {
+        traerDatos(); 
     });
 
 </script>

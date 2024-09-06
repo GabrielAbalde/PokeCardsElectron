@@ -11,14 +11,12 @@
 
     const route = useRoute();
     
-    const modal = ref(false)
-    
     const mostrarIconoBorrado = route.path === "/pokemones";
     
     const emit = defineEmits(["borrarPokemon"]);
 
-    const removerPokemon  = (estado) => {
-        modal = !estado;
+    const removerPokemon  = () => {
+        emit("borrarPokemon", props.name)
     }
 
 </script>
@@ -35,7 +33,7 @@
                 </button>
             </router-link>
         </div>
-        <span v-if="mostrarIconoBorrado" @click="removerPokemon(modal)" class="absolute top-2 right-2 h-auto w-auto bg-rojo-nav/60 rounded-full cursor-pointer">
+        <span v-if="mostrarIconoBorrado" @click="removerPokemon" class="absolute top-2 right-2 h-auto w-auto bg-rojo-nav/60 rounded-full cursor-pointer">
             <Trash class="size-8 text-white p-2"/>
         </span>
     </div>

@@ -1,9 +1,14 @@
 <script setup>
+    import { onMounted } from "vue"
     import Hero from '../components/Hero.vue';
     import PokemonListing from '../components/PokemonListing.vue';
     import { buscarPokemones } from '../composables/buscarPokemones';
 
-    const { pokemones, loading, error } = buscarPokemones(6);
+    const { pokemones, loading, error, traerDatos } = buscarPokemones(6);
+
+    onMounted(() => {
+        traerDatos()
+    })
 </script>
 
 <template>
