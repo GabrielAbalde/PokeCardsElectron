@@ -1,7 +1,6 @@
 <script setup>
     import { Trash } from "lucide-vue-next"
     import { useRoute } from "vue-router"
-    import { ref } from "vue"
 
     const props = defineProps({
         name: String,
@@ -13,11 +12,14 @@
     
     const mostrarIconoBorrado = route.path === "/pokemones";
     
-    const emit = defineEmits(["borrarPokemon"]);
+    const emit = defineEmits(["abrirModal"]);
+
 
     const removerPokemon  = () => {
-        emit("borrarPokemon", props.name)
+        emit("abrirModal", {name: props.name})
     }
+
+
 
 </script>
 

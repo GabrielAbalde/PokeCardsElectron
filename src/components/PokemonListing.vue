@@ -14,10 +14,10 @@
         },
     })
 
-    const emit = defineEmits(["borrarPokemon"]);
+    const emit = defineEmits(["borrarPokemon", "abrirModal"]);
 
     const quitarPokemon = (name) => {
-        emit("borrarPokemon", name);
+        emit("abrirModal", name);
     }
     
 </script>
@@ -33,6 +33,7 @@
                 :image="pokemon.image"
                 :type="pokemon.type"
                 @borrarPokemon="quitarPokemon"
+                @abrirModal="emit('abrirModal', pokemon)"
             />
         </div>
         <p v-else class="w-full self-center">No hay pokemones disponibles xddd</p>

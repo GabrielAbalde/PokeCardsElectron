@@ -1,10 +1,16 @@
 <script setup>
+    import Modal from '../components/Modal.vue';
     import PokemonListing from '../components/PokemonListing.vue';
     import { buscarPokemones } from '../composables/buscarPokemones';
     import { ref, computed, onMounted } from 'vue';
+    import { CircleAlert } from 'lucide-vue-next';
+    import { FwbAlert } from 'flowbite-vue';
 
     const buscarItem = ref("");
     const tiposSeleccionados = ref([]);
+    const modalVisible = ref(false);
+    const alertVisible = ref(false);
+    const pokemonABorrar = ref(null);
 
     const tipos = [
         { name: "normal" },
@@ -32,6 +38,12 @@
 
     const quitarPokemon = (name) => {
         pokemones.value = pokemones.value.filter(pokemon => pokemon.name !== name);
+        modalVisible.value = false;
+        alertVisible.value = true;
+
+        setTimeout(() => {
+            alertVisible.value = false;
+        }, 3000);
     }
     
     const toggleTipo = (tipo) => {
@@ -50,9 +62,16 @@
         });
     });
 
+    const abrirModal = (pokemon) => {
+        pokemonABorrar.value = pokemon;
+        modalVisible.value = true;
+    }
+
     onMounted(() => {
         traerDatos(); 
     });
+
+
 
 </script>
 
@@ -79,6 +98,29 @@
         </div>
         <div v-if="loading" class="text-2xl pl-2">Cargando...</div>
         <div v-else-if="error" class="text-2xl pl-2">{{ error }}</div>
-        <PokemonListing v-else :pokemones="pokeFiltrados" :showButton="false" @borrarPokemon="quitarPokemon" />
+        <PokemonListing v-else :pokemones="pokeFiltrados" :showButton="false" @borrarPokemon="quitarPokemon" @abrirModal="abrirModal"/>
+        <Modal :isOpen="modalVisible" @close="modalVisible = false" >
+            <template v-slot:body >
+                <div class="flex flex-col gap-4">
+                    <CircleAlert class="text-rojo-nav text-center self-center size-10" />
+                    <h1 class="text-center text-lg">¿Seguro que quiere borrar a <span class="capitalize">{{ pokemonABorrar.name }}</span>?</h1>
+                </div>
+            </template>
+            <template v-slot:footer>
+                <div class="flex items-center justify-evenly">
+                    <button class="p-2 px-4 border rounded-lg text-black bg-transparent" @click="modalVisible = false" >Cancelar</button>
+                    <button class="p-2  px-4 text-white bg-rojo-nav rounded-lg" @click="quitarPokemon(pokemonABorrar.name)">Confirmar</button>
+                </div>
+            </template>
+        </Modal>
+        <FwbAlert 
+            v-if="alertVisible" 
+            class="vp-raw absolute top-18 right-2 w-auto md:top-22 md:right-5 bg-rojo-nav/95 text-white"
+            closable 
+            icon 
+            type="info"
+        >
+            Se eliminó un pokemon correctamente
+        </FwbAlert>
     </section>
 </template>
