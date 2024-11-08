@@ -1,11 +1,12 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Pokemon from "../views/Pokemon.vue";
 import Pokemones from "../views/Pokemones.vue"
 import Home from "../views/Home.vue";
+import NotFound from "../views/NotFound.vue";
 
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path:"/",
@@ -21,7 +22,12 @@ const router = createRouter({
             path: '/pokemon/:name',
             name: 'pokemon',
             component: Pokemon,
-        }
+        },
+        {
+            path: '/:catchAll(.*)',
+            name: 'not-found',
+            component: NotFound,
+        },
     ]
 
 })
